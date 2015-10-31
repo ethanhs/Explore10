@@ -1,0 +1,15 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/VS/Colors.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <Style TargetType="{x:Type TabItem}" x:Key="TabAdd">
+                <Setter Property="FocusVisualStyle"
+                        Value="{x:Null}" />
+                <Setter Property="Background"
+                        Value="#404040" />
+                <Setter Property="Foreground"
+                        Value="#404040" />
+    </Style>
+</ResourceDictionary>

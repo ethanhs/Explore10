@@ -4,32 +4,64 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-             xmlns:converters="clr-namespace:Explore10"
+             xmlns:explore="clr-namespace:Explore10"
+             xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1100">
+             d:DesignHeight="600" d:DesignWidth="1100"
+             Name="Explore">
+    
+    
+    
     <Grid Name="ParentGrid">
         <Grid Name="LeftSide" Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl, AncestorLevel=1},Path=DynamicWidth, FallbackValue=48}" HorizontalAlignment="Left">
-            <Controls:Tile Height="48" Width="{Binding ActualWidth, ElementName=LeftSide}" Background="#404040" VerticalAlignment="Top" HorizontalAlignment="Left" Click="StarMenu" Margin="3,9,0,0">
+            <Controls:Tile Name="Star" Height="48" Width="{Binding ActualWidth, ElementName=LeftSide}" Background="#404040" VerticalAlignment="Top" HorizontalAlignment="Left" Click="StarMenu" Margin="3,9,0,0">
                 <Grid Width="{Binding ActualWidth, ElementName=LeftSide}">
                     <Image Source="/Explore10;component/Images/appbar.star.png" HorizontalAlignment="Left"/>
                     <TextBlock Margin="48,0,0,0" FontSize="18" VerticalAlignment="Center">Quick Access</TextBlock>
+                    <Controls:Tile  HorizontalAlignment="Right" Margin="48,0,0,0" Width="48" Height="48" Background="#404040">
+                        <Image Source="/Explore10;component/Images/appbar.chevron.down.png"/>
+                    </Controls:Tile>
+                    
                 </Grid>
         </Controls:Tile>
-        <Controls:Tile Height="44" Width="{Binding ActualWidth, ElementName=LeftSide}" Background="#404040" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="3,60,0,0" Click="StarMenu">
+        <Controls:Tile Name="OneDrive" Height="44" Width="{Binding ActualWidth, ElementName=LeftSide}" Background="#404040" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="3,60,0,0" Click="OpenOneDrive">
                 <Grid Width="{Binding ActualWidth, ElementName=LeftSide}">
                     <Image Source="/Explore10;component/Images/appbar.cloud.png" HorizontalAlignment="Left"/>
                     <TextBlock  Margin="48,0,0,0" FontSize="18" VerticalAlignment="Center">OneDrive</TextBlock>
+                    <Controls:Tile  HorizontalAlignment="Right" Margin="48,0,0,0" Width="48" Height="48" Background="#404040">
+                        <Image Source="/Explore10;component/Images/appbar.chevron.down.png"/>
+                    </Controls:Tile>
                 </Grid>
         </Controls:Tile>
-        <Controls:Tile Height="44" Width="{Binding ActualWidth, ElementName=LeftSide}" Background="#404040" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="3,107,0,0" Click="StarMenu">
+        <Controls:Tile Name="Home"  Height="44" Width="{Binding ActualWidth, ElementName=LeftSide}" Background="#404040" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="3,107,0,0" Click="GoHome">
                 <Grid Width="{Binding ActualWidth, ElementName=LeftSide}">
                     <Image Source="/Explore10;component/Images/appbar.home.empty.png" HorizontalAlignment="Left"/>
                     <TextBlock  Margin="48,0,0,0" FontSize="18" VerticalAlignment="Center">This PC</TextBlock>
+                    <Controls:Tile  HorizontalAlignment="Right" Margin="48,0,0,0" Width="48" Height="48" Background="#404040">
+                        <Image Source="/Explore10;component/Images/appbar.chevron.down.png"/>
+                    </Controls:Tile>
                 </Grid>
             </Controls:Tile>
         </Grid>
-        <WrapPanel Orientation="Horizontal" Name="FileView">
-            
-        </WrapPanel>
+        
+        <Grid>
+            <ScrollViewer>
+            <ItemsControl Name="FilesView" Background="#494949" Margin="{Binding Path=ExplorerView, ElementName=Explore, FallbackValue='50,0,0,0'}">
+                <ItemsControl.Style>
+                <Style TargetType="ItemsControl">
+                    <Setter Property="ItemsPanel">
+                        <Setter.Value>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ItemsControl.Style>
+
+
+            </ItemsControl>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </UserControl>

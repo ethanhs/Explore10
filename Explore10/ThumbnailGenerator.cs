@@ -10,8 +10,6 @@ using System.IO;
 
 namespace Explore10
 {
-    class ThumbnailGenerator
-    {
         [Flags]
         public enum ThumbnailOptions
         {
@@ -184,7 +182,7 @@ namespace Explore10
                 }
             }
 
-            private static IntPtr GetHBitmap(string fileName, int width, int height, ThumbnailOptions options)
+            public static IntPtr GetHBitmap(string fileName, int width, int height, ThumbnailOptions options)
             {
                 IShellItem nativeShellItem;
                 Guid shellItem2Guid = new Guid(IShellItem2Guid);
@@ -207,5 +205,5 @@ namespace Explore10
                 throw Marshal.GetExceptionForHR((int)hr);
             }
         }
-    }
 }
+

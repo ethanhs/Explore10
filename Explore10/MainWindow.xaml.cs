@@ -80,29 +80,27 @@ namespace Explore10
             tab.HeaderTemplate = tabDynamic.FindResource("TabHeader") as DataTemplate;
 
 
-            // add controls to tab item, this case I added just a textbox
+
             ExploreView view = new ExploreView();
             view.Name = "Explore";
-            view.FillView("C:\\");
-            tab.Content = view;
+            view.FillView("C:\\Users\\Ethan Smith\\Pictures\\Wallpapers");
+            //we aren't quite ready to load explore view. Need to work out some
+            //wrinkes
+            tab.Content = view; 
 
             // insert tab item right before the last (+) tab item
-            _tabItems.Insert(count - 1, tab);
-
+            _tabItems.Insert(count-1, tab);
             return tab;
         }
 
         private void tabAdd_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            // clear tab control binding
+            //remove binding
             tabDynamic.DataContext = null;
-
             TabItem tab = this.AddTabItem();
-
-            // bind tab control
+            // bind tab
             tabDynamic.DataContext = _tabItems;
-
-            // select newly added tab item
+            // select new tab
             tabDynamic.SelectedItem = tab;
         }
 
@@ -120,20 +118,20 @@ namespace Explore10
 
             if (tab.Equals(_tabAdd))
             {
-                // clear tab control binding
+                // clear binding
                 tabDynamic.DataContext = null;
 
                 TabItem newTab = this.AddTabItem();
 
-                // bind tab control
+                // bind tab
                 tabDynamic.DataContext = _tabItems;
 
-                // select newly added tab item
+                // select new tab
                 tabDynamic.SelectedItem = newTab;
             }
             else
             {
-                // your code here...
+                //....
             }
         }
 
@@ -177,6 +175,16 @@ namespace Explore10
         private void Close(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void NewWindow(object sender, RoutedEventArgs e)
+        {
+            var info = new System.Diagnostics.ProcessStartInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            System.Diagnostics.Process.Start(info);
+        }
+        private void CMD(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("cmd");
         }
     }
 }
