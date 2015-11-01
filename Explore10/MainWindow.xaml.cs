@@ -54,16 +54,13 @@ namespace Explore10
                 _tabItems.Add(_tabAdd);
                 
                 // add first tab
-                this.AddTabItem();
+                //this.AddTabItem();
                 
                 // bind tab control
                 tabDynamic.DataContext = _tabItems;
 
                 tabDynamic.SelectedIndex = 0;
                 
-                
-            
-            
             
         }
         
@@ -74,8 +71,7 @@ namespace Explore10
 
             // create new tab item
             TabItem tab = new TabItem();
-
-            tab.Header = string.Format("Tab {0}", count);
+            tab.Header = string.Format("Pictures", count);
             tab.Name = string.Format("tab{0}", count);
             tab.HeaderTemplate = tabDynamic.FindResource("TabHeader") as DataTemplate;
 
@@ -84,8 +80,6 @@ namespace Explore10
             ExploreView view = new ExploreView();
             view.Name = "Explore";
             view.FillView("C:\\Users\\Ethan Smith\\Pictures\\Wallpapers");
-            //we aren't quite ready to load explore view. Need to work out some
-            //wrinkes
             tab.Content = view; 
 
             // insert tab item right before the last (+) tab item
@@ -106,8 +100,8 @@ namespace Explore10
 
         private void Flyout(object sender, RoutedEventArgs e)
         {
-                        
 
+            Places.IsOpen = true;
             
         }
 
@@ -186,5 +180,50 @@ namespace Explore10
         {
             System.Diagnostics.Process.Start("cmd");
         }
+
+
+        private void StarMenu(object sender, RoutedEventArgs e)
+        {
+            if (!(Star.Height == 100))
+            {
+                OneDrive.Height = 40;
+                Home.Height = 40;
+                Star.Height = 100;
+                Quick.Height = 60;
+                OneDrive.Margin = new Thickness { Right = 0, Top = 115, Bottom = 0, Left = 3 };
+                Home.Margin = new Thickness { Right = 0, Top = 162, Bottom = 0, Left = 3 };
+            }
+            else
+            {
+                Star.Height = 40;
+                Quick.Height = 0;
+                OneDrive.Margin = new Thickness { Right = 0, Top = 55, Bottom = 0, Left = 3 };
+                Home.Margin = new Thickness { Right = 0, Top = 100, Bottom = 0, Left = 3 };
+            }
+        }
+        private void OpenOneDrive(object sender, RoutedEventArgs e)
+        {
+            if (!(OneDrive.Height == 100))
+            {
+                OneDrive.Height = 100;
+                Home.Height = 40;
+                Star.Height = 40;
+                OneDrive.Margin = new Thickness { Right = 0, Top = 55, Bottom = 0, Left = 3 };
+                Home.Margin = new Thickness { Right = 0, Top = 162, Bottom = 0, Left = 3 };
+            }
+            else
+            {
+                OneDrive.Height = 40;
+                OneDrive.Margin = new Thickness { Right = 0, Top = 55, Bottom = 0, Left = 3 };
+                Home.Margin = new Thickness { Right = 0, Top = 100, Bottom = 0, Left = 3 };
+            }
+        }
+        private void GoHome(object sender, RoutedEventArgs e)
+        {
+            
+            //TODO make a neat start page
+        }
+
+       
     }
 }

@@ -2,13 +2,47 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        
         Height="700" 
         Width="1100" 
         EnableDWMDropShadow="True"
-        Name="MyWindow"
+        Name="Window"
+
         >
-    
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl>
+            <Controls:Flyout Name="Places" Header="" Position="Left" Width="200">
+                <Grid Name="LeftSide" Width="200" HorizontalAlignment="Left">
+                    <Controls:Tile Name="Star" Height="48" Width="{Binding ActualWidth, ElementName=LeftSide}" Background="#404040" VerticalAlignment="Top" HorizontalAlignment="Left" Click="StarMenu" Margin="3,9,0,0">
+                        <Grid Width="{Binding ActualWidth, ElementName=LeftSide}">
+                            <Image Source="/Explore10;component/Images/appbar.star.png" HorizontalAlignment="Left" MaxHeight="48"/>
+                            <TextBlock Margin="48,0,0,0" FontSize="18" VerticalAlignment="Center">Quick Access</TextBlock>
+                            <Controls:Tile  HorizontalAlignment="Right" Margin="48,0,0,0" Width="48" Height="48" Background="#404040">
+                                <Image Source="/Explore10;component/Images/appbar.chevron.down.png"/>
+                            </Controls:Tile>
+                            <ItemsControl Name="Quick" Height="0"></ItemsControl>
+
+                        </Grid>
+                    </Controls:Tile>
+                    <Controls:Tile Name="OneDrive" Height="44" Width="{Binding ActualWidth, ElementName=LeftSide}" Background="#404040" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="3,60,0,0" Click="OpenOneDrive">
+                        <Grid Width="{Binding ActualWidth, ElementName=LeftSide}">
+                            <Image Source="/Explore10;component/Images/appbar.cloud.png" HorizontalAlignment="Left" MaxHeight="48"/>
+                            <TextBlock  Margin="48,0,0,0" FontSize="18" VerticalAlignment="Center">OneDrive</TextBlock>
+                            <Controls:Tile  HorizontalAlignment="Right" Margin="48,0,0,0" Width="48" Height="48" Background="#404040">
+                                <Image Source="/Explore10;component/Images/appbar.chevron.down.png"/>
+                            </Controls:Tile>
+                        </Grid>
+                    </Controls:Tile>
+                    <Controls:Tile Name="Home"  Height="44" Width="{Binding ActualWidth, ElementName=LeftSide}" Background="#404040" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="3,107,0,0" Click="GoHome">
+                        <Grid Width="{Binding ActualWidth, ElementName=LeftSide}">
+                           
+                            <TextBlock  Margin="48,0,0,0" FontSize="18" VerticalAlignment="Center">This PC</TextBlock>
+                            
+                        </Grid>
+                    </Controls:Tile>
+                </Grid>
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
     <Controls:MetroWindow.IconTemplate>
         <DataTemplate>
             <Grid Width="{TemplateBinding Width}"
@@ -28,13 +62,13 @@
         </Controls:WindowCommands>
     </Controls:MetroWindow.LeftWindowCommands>
     <Grid>
-        <Controls:Tile Name="Hamburger" Width="40" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,30,0,0" Click="Flyout">
+        <Controls:Tile Name="Hamburger" Width="40" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,0,0,0" Click="Flyout">
             <Image Source="/Explore10;component/Resources/hamburger.png" Width="50" Height="50"/>
         </Controls:Tile>
-        
-        
-        
-        <TabControl Name="tabDynamic" SelectionChanged="tabDynamic_SelectionChanged" VerticalAlignment="Top" Margin="0,70,0,0" Height="{Binding Path=ActualHeight, ElementName=MyWindow, FallbackValue=630}" ItemsSource="{Binding}">
+
+
+
+        <TabControl Name="tabDynamic" SelectionChanged="tabDynamic_SelectionChanged" VerticalAlignment="Top" Margin="0,40,0,0" Height="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Controls:MetroWindow}},Path=ActualHeight}" ItemsSource="{Binding}">
             <TabControl.Resources>
                 <DataTemplate x:Key="TabHeader" DataType="TabItem">
                     <DockPanel>
@@ -110,12 +144,13 @@
                     </DockPanel>
                 </DataTemplate>
             </TabControl.Resources>
+            
         </TabControl>
 
 
-        <DockPanel HorizontalAlignment="Left" VerticalAlignment="Top">
-            <Menu Width="50" Height="30">
-                <MenuItem Header="_File" Margin="10,5,0,0">
+        <DockPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="40,0,0,0">
+            <Menu Width="50" Height="40">
+                <MenuItem Header="_  File" MinWidth="50" MinHeight="40" Margin="0,0,0,0">
                     <MenuItem Header="_Open New Window" Click="NewWindow">
                         <MenuItem.Icon>
                             <Image Source="/Explore10;component/Resources/appbar.add.png" Width="25"/>

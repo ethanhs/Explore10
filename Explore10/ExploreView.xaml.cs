@@ -58,6 +58,10 @@ namespace Explore10
         }
         public void FillView(string location)
         {
+            //clear for next view
+            try { FilesView.Items.Clear(); }
+            catch { Debug.WriteLine("Unable to clear view"); }
+
             DirectoryInfo dirinfo = new DirectoryInfo(location);
             FileInfo[] files = dirinfo.GetFiles();
             
@@ -66,13 +70,17 @@ namespace Explore10
                 string FileName = file.Name;
 
                 string FullName = file.FullName;
-                System.Diagnostics.Debug.WriteLine(FullName);
                 if (!FullName.Equals(null))
                 {
                     FileItem item = new FileItem();
-                    item.Width = 128;
-                    item.Height = 128;
-                    item.FillItem(FileName);
+                    item.Width = 280;
+                    item.Height = 280;
+                    item.Padding= new Thickness(8);
+                    item.Margin = new Thickness(8);
+                    item.Background = System.Windows.Media.Brushes.Transparent;
+                    item.BorderBrush = System.Windows.Media.Brushes.Transparent;
+                    item.FillItem(FullName, FileName);
+                    
                     FilesView.Items.Add(item);
                 }
                 
@@ -86,46 +94,7 @@ namespace Explore10
             
         }
         
-        private void StarMenu(object sender, RoutedEventArgs e)
-        {
-            if (LeftSide.Width != 200) 
-            { LeftSide.Width = 200; }
-            else if (LeftSide.Width == 200 && LeftSide.Height==48)
-            { Star.Height = 100;
-            OneDrive.Margin = new Thickness { Right = 0, Top = 160, Bottom = 0, Left = 3 };
-            Home.Margin = new Thickness { Right = 0, Top = 160, Bottom = 0, Left = 3 };
-            }
-            else
-            { LeftSide.Width = 48;  }
-            
-        }
-        private void OpenOneDrive(object sender, RoutedEventArgs e)
-        {
-            if (LeftSide.Width != 200)
-            { LeftSide.Width = 200; }
-            else if (LeftSide.Width == 200 && LeftSide.Height != 48)
-            {
-                OneDrive.Height = 100;
-                Star.Margin = new Thickness { Right = 0, Top = 160, Bottom = 0, Left = 3 };
-                Home.Margin = new Thickness { Right = 0, Top = 160, Bottom = 0, Left = 3 };
-            }
-            else
-            { LeftSide.Width = 48; }
-        }
-        private void GoHome(object sender, RoutedEventArgs e)
-        {
-            if (LeftSide.Width != 200)
-            { LeftSide.Width = 200; }
-            else if (LeftSide.Width == 200 && LeftSide.Height == 48)
-            {
-                Home.Height = 100;
-                OneDrive.Margin = new Thickness { Right = 0, Top = 160, Bottom = 0, Left = 3 };
-                Star.Margin = new Thickness { Right = 0, Top = 160, Bottom = 0, Left = 3 };
-            }
-            else
-            { LeftSide.Width = 48; }
 
-        }
         
             
         

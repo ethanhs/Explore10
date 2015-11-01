@@ -25,7 +25,7 @@ namespace Explore10
     /// <summary>
     /// Interaction logic for FileItem.xaml
     /// </summary>
-    public partial class FileItem : UserControl
+    public partial class FileItem : Button
     {
     
         [System.Runtime.InteropServices.DllImport("gdi32.dll")]
@@ -37,15 +37,15 @@ namespace Explore10
         {
             this.DataContext = this;
         }
-        public void FillItem(string _name) {
-            Debug.WriteLine("in FillItem");
+        public void FillItem(string path,string _name) {
             StackPanel ImageStack = new StackPanel();
+            ImageStack.Background = System.Windows.Media.Brushes.Transparent;
             ImageStack.Orientation = Orientation.Vertical;
             System.Windows.Controls.Image FileImage = new System.Windows.Controls.Image();
 
             //get the hbitmap
             
-            IntPtr hBitmap = WindowsThumbnailProvider.GetHBitmap(System.IO.Path.GetFullPath(_name), 256, 256, ThumbnailOptions.BiggerSizeOk);
+            IntPtr hBitmap = WindowsThumbnailProvider.GetHBitmap(System.IO.Path.GetFullPath(path), 256, 256, ThumbnailOptions.BiggerSizeOk);
             ImageSource retval;
             try
             {
@@ -61,6 +61,7 @@ namespace Explore10
 
             TextBlock FileText = new TextBlock();
             FileText.Text = _name;
+            FileText.TextAlignment = TextAlignment.Center;
             
             ImageStack.Children.Add(FileImage);
             ImageStack.Children.Add(FileText);
