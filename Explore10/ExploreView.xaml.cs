@@ -24,8 +24,8 @@ namespace Explore10
     /// </summary>
         public partial class ExploreView : UserControl
     {
-        public Bitmap DefaultBitmap;
-        public int width = 48;
+
+        public string currDir;
 
         public ExploreView()
         {
@@ -34,22 +34,17 @@ namespace Explore10
             
         }
         
-        public Thickness ExplorerThickness
+
+        public void FillView(string location) 
         {
-            get
-            {
-                return new Thickness { Left = this.Width - width };
-            }
-        }
-        public void FillView(string location)
-        {
+            currDir = location;
             //clear for next view
             try { FilesView.Items.Clear(); }
             catch { Debug.WriteLine("Unable to clear view"); }
             AddressBar.Text = location;
             DirectoryInfo dirinfo = new DirectoryInfo(location);
             FileInfo[] files = dirinfo.GetFiles();
-            
+            DirectoryInfo[] dirs = dirinfo.GetDirectories();
             foreach (FileInfo file in files)
             {
                 string FileName = file.Name;
@@ -73,10 +68,55 @@ namespace Explore10
                 
 
             }
+            foreach (DirectoryInfo folder in dirs)
+            {
+                string FolderName = folder.Name;
+
+                string FolderFullName = folder.FullName;
+                if (!FolderFullName.Equals(null))
+                {
+                    FileItem item = new FileItem();
+                    item.Width = 280;
+                    item.Height = 280;
+                    item.Padding = new Thickness(8);
+                    item.Margin = new Thickness(8);
+                    item.Background = System.Windows.Media.Brushes.Transparent;
+                    item.BorderBrush = System.Windows.Media.Brushes.Transparent;
+                    item.FillItem(FolderFullName, FolderName);
+                    item.MouseDoubleClick += folder_MouseDoubleClick;
+
+                    FilesView.Items.Add(item);
+                }
+
+
+
+
+            }
             this.DataContext = this;
             
 
             
+        }
+
+        private void folder_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            FileItem item = (FileItem)sender;
+            this.FillView(item._filepath);
+        }
+
+        private void Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            this.FillView(currDir);
+        }
+
+        private void Up_Click(object sender, RoutedEventArgs e)
+        {
+
+            string[] paths=currDir.Split(Convert.ToChar("\\"));
+            string newPath=paths.Take(paths.Count() - 1).Aggregate((s1, s2) => s1 + "\\" + s2)+"\\";
+            this.FillView(newPath);
+
+
         }
         
 

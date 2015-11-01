@@ -31,13 +31,14 @@ namespace Explore10
         [System.Runtime.InteropServices.DllImport("gdi32.dll")]
         public static extern bool DeleteObject(IntPtr hObject);
 
-        public string _filename;
+        public string _filepath;
         public BitmapImage _fileimg;
         public FileItem()
         {
             this.DataContext = this;
         }
         public void FillItem(string path,string _name) {
+            _filepath = path;
             StackPanel ImageStack = new StackPanel();
             ImageStack.Background = System.Windows.Media.Brushes.Transparent;
             ImageStack.Orientation = Orientation.Vertical;

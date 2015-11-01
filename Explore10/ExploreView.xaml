@@ -19,15 +19,15 @@
             <Button Name="Foreward">
                 <Image Source="/Explore10;component/Images/appbar.arrow.right.png" Height="40" Width="40"/>
             </Button>
-            <Button Name="Up">
+            <Button Name="Up" Click="Up_Click">
                 <Image Source="/Explore10;component/Images/appbar.arrow.up.png" Height="40" Width="40"/>
             </Button>
-            <Button Name="Refresh">
+            <Button Name="Refresh" Click="Refresh_Click">
                 <Image Source="/Explore10;component/Images/appbar.refresh.clockwise.up.png" Height="40" Width="40"/>
             </Button>
             <TextBox Name="AddressBar" FontSize="24"/>
         </DockPanel>
-        <ScrollViewer Height="{Binding ElementName=ParentGrid, Path=Height, FallbackValue=600}" VerticalAlignment="Top" Margin="0,40,0,70">
+        <ScrollViewer MinHeight="{Binding ElementName=ParentGrid, Path=Height, FallbackValue=560}" VerticalAlignment="Top" Margin="0,40,0,70">
             <ItemsControl Name="FilesView" Background="#494949">
                 <ItemsControl.Style>
                     <Style TargetType="ItemsControl">
