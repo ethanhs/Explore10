@@ -12,7 +12,22 @@
     
     
     <Grid Name="ParentGrid">
-        <ScrollViewer Height="{Binding ElementName=ParentGrid, Path=Height, FallbackValue=600}" VerticalAlignment="Top" Margin="0,0,0,70">
+        <DockPanel Height="40" VerticalAlignment="Top">
+            <Button Name="Back">
+                <Image Source="/Explore10;component/Images/appbar.arrow.left.png" Height="40" Width="40"/>
+            </Button>
+            <Button Name="Foreward">
+                <Image Source="/Explore10;component/Images/appbar.arrow.right.png" Height="40" Width="40"/>
+            </Button>
+            <Button Name="Up">
+                <Image Source="/Explore10;component/Images/appbar.arrow.up.png" Height="40" Width="40"/>
+            </Button>
+            <Button Name="Refresh">
+                <Image Source="/Explore10;component/Images/appbar.refresh.clockwise.up.png" Height="40" Width="40"/>
+            </Button>
+            <TextBox Name="AddressBar" FontSize="24"/>
+        </DockPanel>
+        <ScrollViewer Height="{Binding ElementName=ParentGrid, Path=Height, FallbackValue=600}" VerticalAlignment="Top" Margin="0,40,0,70">
             <ItemsControl Name="FilesView" Background="#494949">
                 <ItemsControl.Style>
                     <Style TargetType="ItemsControl">

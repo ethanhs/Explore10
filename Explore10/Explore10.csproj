@@ -210,6 +210,16 @@
   <ItemGroup>
     <Resource Include="Images\CMD.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\appbar.arrow.up.png" />
+    <Resource Include="Images\appbar.refresh.clockwise.up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\appbar.arrow.left.png" />
+    <Resource Include="Resources\appbar.arrow.right.png" />
+    <Resource Include="Resources\appbar.arrow.up.png" />
+    <Resource Include="Resources\appbar.refresh.clockwise.up.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

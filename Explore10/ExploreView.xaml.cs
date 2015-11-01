@@ -29,26 +29,11 @@ namespace Explore10
 
         public ExploreView()
         {
-            DynamicWidth = 48;
             List<FileItem> _files = new List<FileItem>();
             InitializeComponent();
             
         }
         
-        public int DynamicWidth 
-        { 
-            get 
-            {
-                return width;
-            }
-            set 
-            {
-                if (value != width) { 
-                width = value;
-                
-                }
-            } 
-        }
         public Thickness ExplorerThickness
         {
             get
@@ -61,7 +46,7 @@ namespace Explore10
             //clear for next view
             try { FilesView.Items.Clear(); }
             catch { Debug.WriteLine("Unable to clear view"); }
-
+            AddressBar.Text = location;
             DirectoryInfo dirinfo = new DirectoryInfo(location);
             FileInfo[] files = dirinfo.GetFiles();
             

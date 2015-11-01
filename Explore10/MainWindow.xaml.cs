@@ -79,7 +79,7 @@ namespace Explore10
 
             ExploreView view = new ExploreView();
             view.Name = "Explore";
-            view.FillView("C:\\Users\\Ethan Smith\\Pictures\\Wallpapers");
+            view.FillView("C:\\Wallpapers");
             tab.Content = view; 
 
             // insert tab item right before the last (+) tab item
