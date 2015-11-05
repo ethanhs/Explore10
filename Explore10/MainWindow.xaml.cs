@@ -170,7 +170,14 @@ namespace Explore10
         }
         private void CMD(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start("cmd");
+            ProcessStartInfo cmd = new ProcessStartInfo();
+            cmd.FileName = "cmd";
+            ExploreView view = (ExploreView)tabDynamic.SelectedContent;
+            
+            cmd.Arguments = "/k cd " + view.currDir; //REPLACE WITH CD "CURRENT DIRECTORY"
+            Process P = Process.Start(cmd);
+            
+
         }
 
 
