@@ -1,6 +1,6 @@
 #Explore10
 
-The new fancy Windows Explorer alternative. To use, please go to releases and download the latest zip. If you find issues, file them!
+The new fancy Windows Explorer alternative. Please download Visual Studio 2015 and open the solution, then build.
 
 #Status
 Very broken right now
