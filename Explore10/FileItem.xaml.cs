@@ -44,28 +44,23 @@ namespace Explore10
             ImageStack.Orientation = Orientation.Vertical;
             System.Windows.Controls.Image FileImage = new System.Windows.Controls.Image();
 
-            //get the hbitmap
-            
-            IntPtr hBitmap = WindowsThumbnailProvider.GetHBitmap(System.IO.Path.GetFullPath(path), 256, 256, ThumbnailOptions.BiggerSizeOk);
-            ImageSource retval;
-            try
-            {
-                retval = Imaging.CreateBitmapSourceFromHBitmap(hBitmap, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-            }
-            finally
-            {
-                DeleteObject(hBitmap);
-            }
+            //set the source!!!
+            FileImage.Source = SmartThumnailProvider.GetThumbInt(path, 128, 128,ThumbOptions.BiggerOk);
 
-            FileImage.Source = retval;
 
 
             TextBlock FileText = new TextBlock();
+            FileText.FontSize = 18;
+            FileText.TextTrimming = TextTrimming.CharacterEllipsis;
             FileText.Text = _name;
             FileText.TextAlignment = TextAlignment.Center;
-            
+            FileText.VerticalAlignment = VerticalAlignment.Bottom;
+            FileText.Height = 30;
+            FileImage.Height = 100;
+            FileImage.Width = 100;
             ImageStack.Children.Add(FileImage);
             ImageStack.Children.Add(FileText);
+            
             this.Content = ImageStack;
 
         }

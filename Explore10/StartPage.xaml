@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="Explore10.StartPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Explore10"
+      mc:Ignorable="d" 
+      d:DesignHeight="550" d:DesignWidth="1100"
+      Name="Start">
+
+    <Grid>
+        <DockPanel Margin="100,100,100,200">
+            <!-- See codebehind for filling this -->
+            <TreeView Name="Drives" Margin="20" BorderBrush="Transparent">
+            </TreeView>
+        </DockPanel>
+    </Grid>
+</UserControl>

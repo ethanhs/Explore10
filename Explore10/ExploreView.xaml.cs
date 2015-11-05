@@ -1,21 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.ComponentModel;
 using System.IO;
-using System.Drawing;
 using System.Diagnostics;
+
 
 namespace Explore10
 {
@@ -26,10 +17,12 @@ namespace Explore10
     {
 
         public string currDir;
-
+        public string prevDir;
+        public string nextDir;
         public ExploreView()
         {
             List<FileItem> _files = new List<FileItem>();
+            StartPage page = new StartPage();
             InitializeComponent();
             
         }
@@ -37,6 +30,7 @@ namespace Explore10
 
         public void FillView(string location) 
         {
+            prevDir = currDir;
             currDir = location;
             //clear for next view
             try { FilesView.Items.Clear(); }
@@ -53,14 +47,14 @@ namespace Explore10
                 if (!FullName.Equals(null))
                 {
                     FileItem item = new FileItem();
-                    item.Width = 280;
-                    item.Height = 280;
+                    item.Width = 160;
+                    item.Height = 160;
                     item.Padding= new Thickness(8);
                     item.Margin = new Thickness(8);
                     item.Background = System.Windows.Media.Brushes.Transparent;
                     item.BorderBrush = System.Windows.Media.Brushes.Transparent;
+                    item.MouseDoubleClick += openFile;
                     item.FillItem(FullName, FileName);
-                    
                     FilesView.Items.Add(item);
                 }
                 
@@ -76,8 +70,8 @@ namespace Explore10
                 if (!FolderFullName.Equals(null))
                 {
                     FileItem item = new FileItem();
-                    item.Width = 280;
-                    item.Height = 280;
+                    item.Width = 160;
+                    item.Height = 160;
                     item.Padding = new Thickness(8);
                     item.Margin = new Thickness(8);
                     item.Background = System.Windows.Media.Brushes.Transparent;
@@ -101,6 +95,7 @@ namespace Explore10
         private void folder_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             FileItem item = (FileItem)sender;
+            prevDir = item._filepath;
             this.FillView(item._filepath);
         }
 
@@ -116,14 +111,67 @@ namespace Explore10
             string newPath=paths.Take(paths.Count() - 1).Aggregate((s1, s2) => s1 + "\\" + s2)+"\\";
             this.FillView(newPath);
 
-
         }
-        
 
-        
-            
-        
-        
+        private void Forward_Click(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine(nextDir);
+            if (nextDir != null && nextDir != "")
+            {
+                try { this.FillView(nextDir); }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+                
+                
+            }
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            nextDir = currDir;
+            Debug.WriteLine(prevDir);
+            if (prevDir != null && prevDir != "")
+            {
+                try { this.FillView(prevDir); }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+
+
+            }
+        }
+
+        private void Go_Click(object sender, RoutedEventArgs e)
+        {
+            prevDir = currDir;
+            if (!AddressBar.Text.Equals(null) && AddressBar.Text!="")
+            {
+                string path= AddressBar.Text;
+                if (Directory.Exists(path))
+                {
+                    FillView(path);
+                }
+                else if (File.Exists(path))
+                {
+                    Process.Start(path);
+
+                }
+            }
+        }
+        private void openFile(object sender, RoutedEventArgs e)
+        {
+            FileItem item = (FileItem)sender;
+            Process.Start(item._filepath);
+        }
+
+
+
+
+
+
     }
         
 

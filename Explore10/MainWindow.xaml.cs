@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Diagnostics;
 using MahApps.Metro.Controls;
 
 namespace Explore10
@@ -50,7 +43,7 @@ namespace Explore10
                 _tabAdd.Width = 35;
                 _tabAdd.Header = plus;
                 _tabAdd.MouseLeftButtonUp += new MouseButtonEventHandler(tabAdd_MouseLeftButtonUp);
-
+                
                 _tabItems.Add(_tabAdd);
                 
                 // add first tab
@@ -68,10 +61,9 @@ namespace Explore10
         private TabItem AddTabItem()
         {
             int count = _tabItems.Count;
-
             // create new tab item
             TabItem tab = new TabItem();
-            tab.Header = string.Format("Pictures", count);
+            tab.Header = string.Format("C:\\", count);
             tab.Name = string.Format("tab{0}", count);
             tab.HeaderTemplate = tabDynamic.FindResource("TabHeader") as DataTemplate;
 
@@ -79,8 +71,8 @@ namespace Explore10
 
             ExploreView view = new ExploreView();
             view.Name = "Explore";
-            view.FillView("C:\\Wallpapers");
-            tab.Content = view; 
+            view.FillView("C:\\");
+            tab.Content = view;
 
             // insert tab item right before the last (+) tab item
             _tabItems.Insert(count-1, tab);
@@ -220,10 +212,15 @@ namespace Explore10
         }
         private void GoHome(object sender, RoutedEventArgs e)
         {
+            Places.IsOpen = false;
+            StartPage page = new StartPage();
+            page.FillDrives();
+            TabItem tab = (TabItem) tabDynamic.SelectedItem;
+            tab.Header = "This PC";
+            tab.Content = page;
             
-            //TODO make a neat start page
+            
         }
 
-       
     }
 }

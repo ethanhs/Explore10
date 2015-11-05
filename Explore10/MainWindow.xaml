@@ -34,12 +34,12 @@
                     </Controls:Tile>
                     <Controls:Tile Name="Home"  Height="44" Width="{Binding ActualWidth, ElementName=LeftSide}" Background="#404040" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="3,107,0,0" Click="GoHome">
                         <Grid Width="{Binding ActualWidth, ElementName=LeftSide}">
-                           
                             <TextBlock  Margin="48,0,0,0" FontSize="18" VerticalAlignment="Center">This PC</TextBlock>
-                            
+                            <Image Source="/Explore10;component/Images/appbar.home.empty.png" HorizontalAlignment="Left" />
                         </Grid>
                     </Controls:Tile>
                 </Grid>
+                
             </Controls:Flyout>
         </Controls:FlyoutsControl>
     </Controls:MetroWindow.Flyouts>
