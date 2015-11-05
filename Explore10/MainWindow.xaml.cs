@@ -173,11 +173,10 @@ namespace Explore10
             ProcessStartInfo cmd = new ProcessStartInfo();
             cmd.FileName = "cmd";
             ExploreView view = (ExploreView)tabDynamic.SelectedContent;
-            
-            cmd.Arguments = "/k cd " + view.currDir; //REPLACE WITH CD "CURRENT DIRECTORY"
+            cmd.Arguments = "/k cd " + view.currDir;
+            //If you want to make it open an admin command prompt, uncomment:
+            //cmd.Verb = "runas";
             Process P = Process.Start(cmd);
-            
-
         }
 
 
