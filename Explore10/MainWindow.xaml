@@ -161,6 +161,11 @@
                             <Image Source="/Explore10;component/Images/CMD.png" Width="25"/>
                         </MenuItem.Icon>
                     </MenuItem>
+                    <MenuItem Header=" Open PowerShell" Click="PowerShell">
+                        <MenuItem.Icon>
+                            <Image Source="/Explore10;component/Images/CMD.png" Width="25"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <MenuItem Header=" Close" Click="Close">
                         <MenuItem.Icon>
                             <Image Source="/Explore10;component/Resources/appbar.close.png" Width="25"/>

@@ -179,6 +179,17 @@ namespace Explore10
             Process P = Process.Start(cmd);
         }
 
+        private void PowerShell(object sender, RoutedEventArgs e)
+        {
+            ProcessStartInfo PowerShell = new ProcessStartInfo();
+            PowerShell.FileName = "powershell";
+            ExploreView view = (ExploreView)tabDynamic.SelectedContent;
+            PowerShell.Arguments = "-NoExit -Command cd " + view.currDir;
+            //If you want to make it open an admin command prompt, uncomment:
+            //cmd.Verb = "runas";
+            Process P = Process.Start(PowerShell);
+        }
+
 
         private void StarMenu(object sender, RoutedEventArgs e)
         {
