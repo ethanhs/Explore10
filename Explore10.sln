@@ -7,6 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Explore10", "Explore10\Expl
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2922C45E-09E9-4BC5-8EA2-F6D4F77B4551}"
 	ProjectSection(SolutionItems) = preProject
+		Licence.txt = Licence.txt
 		README.md = README.md
 	EndProjectSection
 EndProject
