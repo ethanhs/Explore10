@@ -30,7 +30,7 @@
         <Button Name="Go" Width="40" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Go_Click">
             <Image Source="/Explore10;component/Images/appbar.navigate.next.png" Height="40" Width="40"/>
         </Button>
-        <ScrollViewer MinHeight="{Binding ElementName=ParentGrid, Path=Height, FallbackValue=560}" VerticalAlignment="Top" Margin="0,40,0,70">
+        <ScrollViewer VerticalAlignment="Top" Margin="0,40,0,70">
             <ItemsControl Name="FilesView" Background="#494949">
                 <ItemsControl.Style>
                     <Style TargetType="ItemsControl">
