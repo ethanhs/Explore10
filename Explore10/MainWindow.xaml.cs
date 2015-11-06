@@ -170,7 +170,24 @@ namespace Explore10
         }
         private void CMD(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start("cmd");
+            ProcessStartInfo cmd = new ProcessStartInfo();
+            cmd.FileName = "cmd";
+            ExploreView view = (ExploreView)tabDynamic.SelectedContent;
+            cmd.Arguments = "/k cd " + view.currDir;
+            //If you want to make it open an admin command prompt, uncomment:
+            //cmd.Verb = "runas";
+            Process P = Process.Start(cmd);
+        }
+
+        private void PowerShell(object sender, RoutedEventArgs e)
+        {
+            ProcessStartInfo PowerShell = new ProcessStartInfo();
+            PowerShell.FileName = "powershell";
+            ExploreView view = (ExploreView)tabDynamic.SelectedContent;
+            PowerShell.Arguments = "-NoExit -Command cd " + view.currDir;
+            //If you want to make it open an admin command prompt, uncomment:
+            //cmd.Verb = "runas";
+            Process P = Process.Start(PowerShell);
         }
 
 
