@@ -31,38 +31,41 @@ namespace Explore10
         {
             foreach (System.IO.DriveInfo di in System.IO.DriveInfo.GetDrives())
             {
-                StackPanel hPanel = new StackPanel();
-                hPanel.Orientation = Orientation.Horizontal;
-                StackPanel vPanel = new StackPanel();
-                vPanel.Orientation = Orientation.Vertical;
-                TextBlock Label = new TextBlock();
-                Label.Text = di.VolumeLabel;
-                Label.FontSize = 22; //quick hack TODO: add images?
-                TextBlock Name = new TextBlock();
-                Name.Text = di.Name;
-                Name.FontSize = 40;
-                Name.Width = 60;
-                Name.Margin = new Thickness { Right = 10 };
-                Name.Name = "Path";
-                hPanel.Children.Add(Name);
-                TextBlock Space = new TextBlock();
-                Space.Text = string.Format("{0} free of {1}",PrettyByte(di.AvailableFreeSpace), PrettyByte(di.TotalSize));
-                ProgressBar DriveFilled = new ProgressBar();
-                DriveFilled.Minimum = 0;
-                DriveFilled.Maximum = di.TotalSize;
-                DriveFilled.Value = (di.TotalSize - di.AvailableFreeSpace);
-                DriveFilled.Height = 8;
-                DriveFilled.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x30, 0x91, 0xDD));
-                DriveFilled.Background = new SolidColorBrush((Color) ColorConverter.ConvertFromString("White")); //it really shouldn't be this hard
-                vPanel.Children.Add(Label);
-                vPanel.Children.Add(DriveFilled);
-                vPanel.Children.Add(Space);
-                hPanel.Children.Add(vPanel);
-                hPanel.Width = 200;
-                hPanel.Height = 50;
-                hPanel.AddHandler(StackPanel.MouseDownEvent, new MouseButtonEventHandler(OpenDrive));
-                hPanel.Margin = new Thickness(10);
-                Drives.Items.Add(hPanel);
+                if (di.IsReady)
+                {
+                    StackPanel hPanel = new StackPanel();
+                    hPanel.Orientation = Orientation.Horizontal;
+                    StackPanel vPanel = new StackPanel();
+                    vPanel.Orientation = Orientation.Vertical;
+                    TextBlock Label = new TextBlock();
+                    Label.Text = di.VolumeLabel;
+                    Label.FontSize = 22; //quick hack TODO: add images?
+                    TextBlock Name = new TextBlock();
+                    Name.Text = di.Name;
+                    Name.FontSize = 40;
+                    Name.Width = 60;
+                    Name.Margin = new Thickness { Right = 10 };
+                    Name.Name = "Path";
+                    hPanel.Children.Add(Name);
+                    TextBlock Space = new TextBlock();
+                    Space.Text = string.Format("{0} free of {1}", PrettyByte(di.AvailableFreeSpace), PrettyByte(di.TotalSize));
+                    ProgressBar DriveFilled = new ProgressBar();
+                    DriveFilled.Minimum = 0;
+                    DriveFilled.Maximum = di.TotalSize;
+                    DriveFilled.Value = (di.TotalSize - di.AvailableFreeSpace);
+                    DriveFilled.Height = 8;
+                    DriveFilled.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x30, 0x91, 0xDD));
+                    DriveFilled.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("White")); //it really shouldn't be this hard
+                    vPanel.Children.Add(Label);
+                    vPanel.Children.Add(DriveFilled);
+                    vPanel.Children.Add(Space);
+                    hPanel.Children.Add(vPanel);
+                    hPanel.Width = 200;
+                    hPanel.Height = 50;
+                    hPanel.AddHandler(StackPanel.MouseDownEvent, new MouseButtonEventHandler(OpenDrive));
+                    hPanel.Margin = new Thickness(10);
+                    Drives.Items.Add(hPanel);
+                }
             }
         }
         private void OpenDrive(object sender, MouseButtonEventArgs e)
