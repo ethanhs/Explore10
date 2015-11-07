@@ -43,7 +43,6 @@ namespace Explore10
                 _tabAdd.Width = 35;
                 _tabAdd.Header = plus;
                 _tabAdd.MouseLeftButtonUp += new MouseButtonEventHandler(tabAdd_MouseLeftButtonUp);
-                
                 _tabItems.Add(_tabAdd);
                 
                 // add first tab
