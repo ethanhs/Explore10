@@ -29,7 +29,7 @@ namespace Explore10
     {
     
         [System.Runtime.InteropServices.DllImport("gdi32.dll")]
-        public static extern bool DeleteObject(IntPtr hObject);
+        private static extern bool DeleteObject(IntPtr hObject);
 
         public string _filepath;
         public BitmapImage _fileimg;

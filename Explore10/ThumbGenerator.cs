@@ -86,7 +86,7 @@ namespace Explore10
 
         [DllImport("gdi32.dll", EntryPoint = "DeleteObject")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool DeleteObject([In] IntPtr hObject);
+        private static extern bool DeleteObject([In] IntPtr hObject);
 
         [ComImport]
         [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

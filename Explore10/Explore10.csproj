@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\Explorer.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DirectoryInfoEx">
       <HintPath>..\packages\DirectoryInfoEx.0.25.0\lib\net45\DirectoryInfoEx.dll</HintPath>
