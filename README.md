@@ -11,9 +11,9 @@ Very broken right now
 This program supports free software and is GPL v3 licensed.
 
 Explore10  Copyright (C) 2015  Ethan Smith
-    This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
+
+    This program comes with ABSOLUTELY NO WARRANTY;
     This is free software, and you are welcome to redistribute it
-    under certain conditions; type `show c' for details.
 
 #Thanks
 Many of the icons in this program come from the WindowsIcon Pack, licensed under the [CC 3.0 license](https://creativecommons.org/licenses/by/3.0/us/). Also, the code used to get thumnails of files is thanks to Daniel Peñalba. Thanks!
