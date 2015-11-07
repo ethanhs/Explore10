@@ -182,8 +182,16 @@ namespace Explore10
         {
             ProcessStartInfo PowerShell = new ProcessStartInfo();
             PowerShell.FileName = "powershell";
-            ExploreView view = (ExploreView)tabDynamic.SelectedContent;
-            PowerShell.Arguments = "-NoExit -Command cd " + view.currDir;
+            try
+            {
+                ExploreView view = (ExploreView)tabDynamic.SelectedContent;
+                PowerShell.Arguments = "-NoExit -Command cd " + view.currDir;
+            }
+            catch //if we are in this pc view, the above will fail.
+            {
+                PowerShell.Arguments = "-NoExit -Command cd "+ Environment.SpecialFolder.UserProfile;
+            }
+            
             //If you want to make it open an admin command prompt, uncomment:
             //cmd.Verb = "runas";
             Process P = Process.Start(PowerShell);
