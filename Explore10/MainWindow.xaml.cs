@@ -18,7 +18,7 @@ namespace Explore10
     {
         private readonly List<TabItem> _tabItems;
         private readonly TabItem _tabAdd;
-
+        private int tabcount;
         public MainWindow()
         {
 
@@ -49,7 +49,7 @@ namespace Explore10
             _tabAdd.Header = plus;
             _tabAdd.MouseLeftButtonUp += tabAdd_MouseLeftButtonUp;
             _tabItems.Add(_tabAdd);
-
+            tabcount += 1;
             // add first tab
             this.AddTabItem();
 
@@ -64,7 +64,7 @@ namespace Explore10
 
         private TabItem AddTabItem()
         {
-            int count = _tabItems.Count;
+            int count = tabcount;
             Debug.WriteLine(count);
             // create new tab item
             var tab = new TabItem
@@ -81,7 +81,8 @@ namespace Explore10
             tab.Content = view;
 
             // insert tab item right before the last (+) tab item
-            _tabItems.Insert(count-1, tab);
+            _tabItems.Insert(_tabItems.Count-1, tab);
+            tabcount += 1;
             return tab;
         }
 
