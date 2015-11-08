@@ -7,7 +7,8 @@
         EnableDWMDropShadow="True"
         Name="Window"
         Icon="/Explore10;component/Resources/Explorer.ico"
-
+        LeftWindowCommandsOverlayBehavior="Always"
+        IconOverlayBehavior="Always"
         >
     <Controls:MetroWindow.Flyouts>
         <Controls:FlyoutsControl>

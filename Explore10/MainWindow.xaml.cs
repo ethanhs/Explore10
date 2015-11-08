@@ -65,6 +65,7 @@ namespace Explore10
         private TabItem AddTabItem()
         {
             int count = _tabItems.Count;
+            Debug.WriteLine(count);
             // create new tab item
             var tab = new TabItem
             {
@@ -138,6 +139,8 @@ namespace Explore10
                 // clear tab control binding
                 tabDynamic.DataContext = null;
 
+                //get the index for latter
+                var index = _tabItems.IndexOf(selectedTab);
                 _tabItems.Remove(tab);
 
                 // bind tab control
@@ -146,7 +149,7 @@ namespace Explore10
                 // select previously selected tab. if that is removed then select first tab
                 if (selectedTab == null || selectedTab.Equals(tab))
                 {
-                    selectedTab = _tabItems[0];
+                    selectedTab = _tabItems[index + 1]; //go to the right?
                 }
                 tabDynamic.SelectedItem = selectedTab;
             }
