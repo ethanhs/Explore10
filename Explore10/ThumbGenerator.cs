@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Windows;
-using System.IO;
 using System.Windows.Media;
 using System.Windows.Interop;
-using System.Collections.Generic;
+
 namespace Explore10
 {
     [Flags]
@@ -62,12 +59,11 @@ namespace Explore10
         }
 
         [StructLayoutAttribute(LayoutKind.Sequential)]
-        struct BITMAPINFO
+        struct Bitmapinfo
         {
-            public BITMAPINFOHEADER bmiHeader;
+            private readonly BITMAPINFOHEADER bmiHeader;
 
-            [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 1, ArraySubType = UnmanagedType.Struct)]
-            public RGBQUAD[] bmiColors;
+            [MarshalAsAttribute(UnmanagedType.ByValArray, SizeConst = 1, ArraySubType = UnmanagedType.Struct)] private readonly RGBQUAD[] bmiColors;
         }
 
         enum DIB_Color_Mode : uint
@@ -155,21 +151,25 @@ namespace Explore10
             AccessDenied = unchecked((int)0x80030005)
         }
 
-        private const string IShellItemGuid = "7E9FB0D3-919F-4307-AB2E-9B1860310C93";
+        private const string ShellItemGuid = "7E9FB0D3-919F-4307-AB2E-9B1860310C93";
 
         public static ImageSource GetThumbInt(string path, int width, int height, ThumbOptions opt)
         {
             IShellItem shellitem;
-            Guid ShellGUID = new Guid(IShellItemGuid);
-            int ret = SHCreateItemFromParsingName(path, IntPtr.Zero, ref ShellGUID, out shellitem);
+            var shellGuid = new Guid(ShellItemGuid);
+            int ret = SHCreateItemFromParsingName(path, IntPtr.Zero, ref shellGuid, out shellitem);
             if (ret != 0)
                 throw Marshal.GetExceptionForHR(ret);
-            NativeSize nativeSize = new NativeSize();
-            nativeSize.Width = width;
-            nativeSize.Height = height;
+            var nativeSize = new NativeSize
+            {
+                Width = width,
+                Height = height
+            };
 
             IntPtr hBitmap;
-            HResult hr = ((IShellItemImageFactory)shellitem).GetImage(nativeSize, opt, out hBitmap);
+            var shellItemImageFactory = (IShellItemImageFactory) shellitem;
+            if (shellItemImageFactory == null) return null;
+            HResult hr = shellItemImageFactory.GetImage(nativeSize, opt, out hBitmap);
 
             Marshal.ReleaseComObject(shellitem);
 
@@ -177,6 +177,7 @@ namespace Explore10
             {
                 throw Marshal.GetExceptionForHR((int)hr);
             }
+
             ImageSource imgsrc;
             try
             {
@@ -187,7 +188,6 @@ namespace Explore10
                 DeleteObject(hBitmap);
             }
             return imgsrc;
-
         }
     }
 }
