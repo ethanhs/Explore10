@@ -51,7 +51,7 @@ namespace Explore10
             _tabItems.Add(_tabAdd);
 
             // add first tab
-            //this.AddTabItem();
+            this.AddTabItem();
 
             // bind tab control
             tabDynamic.DataContext = _tabItems;
@@ -107,19 +107,12 @@ namespace Explore10
             var tab = tabDynamic.SelectedItem as TabItem;
             if (tab == null) return;
 
-            if (tab.Equals(_tabAdd))
+            if (tab.Equals(_tabAdd) && tabDynamic.Items.Count!=1)
             {
-                // clear binding
-                tabDynamic.DataContext = null;
-
-                var newTab = this.AddTabItem();
-
-                // bind tab
-                tabDynamic.DataContext = _tabItems;
-
-                // select new tab
-                tabDynamic.SelectedItem = newTab;
+                //go to the first tab if we are at the end
+                tabDynamic.SelectedItem = tabDynamic.Items.GetItemAt(0);
             }
+            
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)

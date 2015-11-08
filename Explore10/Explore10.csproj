@@ -38,9 +38,6 @@
     <ApplicationIcon>Resources\Explorer.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DirectoryInfoEx">
-      <HintPath>..\packages\DirectoryInfoEx.0.25.0\lib\net45\DirectoryInfoEx.dll</HintPath>
-    </Reference>
     <Reference Include="MahApps.Metro, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>MahApps.Metro\MahApps.Metro.dll</HintPath>
@@ -49,7 +46,6 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -65,14 +61,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helpers.cs" />
+    <Compile Include="ThumbGenerator.cs" />
     <Compile Include="Views\FileItem.xaml.cs">
       <DependentUpon>FileItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Helpers.cs" />
     <Compile Include="Views\StartPage.xaml.cs">
       <DependentUpon>StartPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ThumbGenerator.cs" />
     <Page Include="Views\ExploreView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
