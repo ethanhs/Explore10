@@ -16,60 +16,66 @@ namespace Explore10
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private List<TabItem> _tabItems;
-        private TabItem _tabAdd;
+        private readonly List<TabItem> _tabItems;
+        private readonly TabItem _tabAdd;
+
         public MainWindow()
         {
-            
-                InitializeComponent();
 
-                // initialize tabItem array
-                _tabItems = new List<TabItem>();
-                
-                // add a tabItem with + in header 
-                _tabAdd = new TabItem();
-                //get image for header and setup add button
-                _tabAdd.Style = new Style();
-                _tabAdd.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x30, 0x30, 0x30));
-                _tabAdd.BorderBrush = new SolidColorBrush(Color.FromArgb(0xFF, 0x30, 0x30, 0x30));
-                BitmapImage bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.UriSource = new Uri(@"pack://application:,,,/Explore10;component/Images/appbar.add.png");
-                bitmap.EndInit();
-                Image plus = new Image();
-                plus.Source = bitmap;
-                plus.Width = 25;
-                plus.Height = 25;
-                _tabAdd.Width = 35;
-                _tabAdd.Header = plus;
-                _tabAdd.MouseLeftButtonUp += new MouseButtonEventHandler(tabAdd_MouseLeftButtonUp);
-                _tabItems.Add(_tabAdd);
-                
-                // add first tab
-                //this.AddTabItem();
-                
-                // bind tab control
-                tabDynamic.DataContext = _tabItems;
+            InitializeComponent();
 
-                tabDynamic.SelectedIndex = 0;
-                
-            
+            // initialize tabItem array
+            _tabItems = new List<TabItem>();
+
+            // add a tabItem with + in header 
+            _tabAdd = new TabItem
+            {
+                Style = new Style(),
+                Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x30, 0x30, 0x30)),
+                BorderBrush = new SolidColorBrush(Color.FromArgb(0xFF, 0x30, 0x30, 0x30))
+            };
+            //get image for header and setup add button
+            var bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri(@"pack://application:,,,/Explore10;component/Images/appbar.add.png");
+            bitmap.EndInit();
+            var plus = new Image
+            {
+                Source = bitmap,
+                Width = 25,
+                Height = 25
+            };
+            _tabAdd.Width = 35;
+            _tabAdd.Header = plus;
+            _tabAdd.MouseLeftButtonUp += tabAdd_MouseLeftButtonUp;
+            _tabItems.Add(_tabAdd);
+
+            // add first tab
+            //this.AddTabItem();
+
+            // bind tab control
+            tabDynamic.DataContext = _tabItems;
+
+            tabDynamic.SelectedIndex = 0;
+
+
         }
-        
+
 
         private TabItem AddTabItem()
         {
             int count = _tabItems.Count;
             // create new tab item
-            TabItem tab = new TabItem();
-            tab.Header = string.Format("C:\\", count);
-            tab.Name = string.Format("tab{0}", count);
-            tab.HeaderTemplate = tabDynamic.FindResource("TabHeader") as DataTemplate;
+            var tab = new TabItem
+            {
+                Header = string.Format("C:\\", count),
+                Name = $"tab{count}",
+                HeaderTemplate = tabDynamic.FindResource("TabHeader") as DataTemplate
+            };
 
 
 
-            ExploreView view = new ExploreView();
-            view.Name = "Explore";
+            ExploreView view = new ExploreView {Name = "Explore"};
             view.FillView("C:\\");
             tab.Content = view;
 
@@ -82,7 +88,7 @@ namespace Explore10
         {
             //remove binding
             tabDynamic.DataContext = null;
-            TabItem tab = this.AddTabItem();
+            var tab = this.AddTabItem();
             // bind tab
             tabDynamic.DataContext = _tabItems;
             // select new tab
@@ -98,7 +104,7 @@ namespace Explore10
 
         private void tabDynamic_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            TabItem tab = tabDynamic.SelectedItem as TabItem;
+            var tab = tabDynamic.SelectedItem as TabItem;
             if (tab == null) return;
 
             if (tab.Equals(_tabAdd))
@@ -106,7 +112,7 @@ namespace Explore10
                 // clear binding
                 tabDynamic.DataContext = null;
 
-                TabItem newTab = this.AddTabItem();
+                var newTab = this.AddTabItem();
 
                 // bind tab
                 tabDynamic.DataContext = _tabItems;
@@ -114,93 +120,84 @@ namespace Explore10
                 // select new tab
                 tabDynamic.SelectedItem = newTab;
             }
-            else
-            {
-                //....
-            }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            string tabName = (sender as Button).CommandParameter.ToString();
+            var button = sender as Button;
+            if (button == null) return;
+            string tabName = button.CommandParameter.ToString();
 
-            var item = tabDynamic.Items.Cast<TabItem>().Where(i => i.Name.Equals(tabName)).SingleOrDefault();
+            var item = tabDynamic.Items.Cast<TabItem>().SingleOrDefault(i => i.Name.Equals(tabName));
 
-            TabItem tab = item as TabItem;
+            var tab = item;
 
-            if (tab != null)
+            if (tab == null) return;
+            if (_tabItems.Count < 3)
             {
-                if (_tabItems.Count < 3)
+                Close();
+            }
+            else
+            {
+                // get selected tab
+                TabItem selectedTab = tabDynamic.SelectedItem as TabItem;
+
+                // clear tab control binding
+                tabDynamic.DataContext = null;
+
+                _tabItems.Remove(tab);
+
+                // bind tab control
+                tabDynamic.DataContext = _tabItems;
+
+                // select previously selected tab. if that is removed then select first tab
+                if (selectedTab == null || selectedTab.Equals(tab))
                 {
-                    this.Close();
+                    selectedTab = _tabItems[0];
                 }
-                else
-                {
-                    // get selected tab
-                    TabItem selectedTab = tabDynamic.SelectedItem as TabItem;
-
-                    // clear tab control binding
-                    tabDynamic.DataContext = null;
-
-                    _tabItems.Remove(tab);
-
-                    // bind tab control
-                    tabDynamic.DataContext = _tabItems;
-
-                    // select previously selected tab. if that is removed then select first tab
-                    if (selectedTab == null || selectedTab.Equals(tab))
-                    {
-                        selectedTab = _tabItems[0];
-                    }
-                    tabDynamic.SelectedItem = selectedTab;
-                }
+                tabDynamic.SelectedItem = selectedTab;
             }
         }
-        
-        private void Close(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
+
+        private void Close(object sender, RoutedEventArgs e) => Close();
 
         private void NewWindow(object sender, RoutedEventArgs e)
         {
-            var info = new System.Diagnostics.ProcessStartInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            System.Diagnostics.Process.Start(info);
+            var info = new ProcessStartInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            Process.Start(info);
         }
-        private void CMD(object sender, RoutedEventArgs e)
+        private void Cmd(object sender, RoutedEventArgs e)
         {
-            ProcessStartInfo cmd = new ProcessStartInfo();
-            cmd.FileName = "cmd";
-            ExploreView view = (ExploreView)tabDynamic.SelectedContent;
-            cmd.Arguments = "/k cd " + view.currDir;
+            var cmd = new ProcessStartInfo {FileName = "cmd"};
+            var view = (ExploreView)tabDynamic.SelectedContent;
+            cmd.Arguments = "/k cd " + view.CurrDir;
             //If you want to make it open an admin command prompt, uncomment:
             //cmd.Verb = "runas";
-            Process P = Process.Start(cmd);
+            Process p = Process.Start(cmd);
         }
 
         private void PowerShell(object sender, RoutedEventArgs e)
         {
-            ProcessStartInfo PowerShell = new ProcessStartInfo();
-            PowerShell.FileName = "powershell";
+            ProcessStartInfo powerShell = new ProcessStartInfo {FileName = "powershell"};
             try
             {
                 ExploreView view = (ExploreView)tabDynamic.SelectedContent;
-                PowerShell.Arguments = "-NoExit -Command cd " + view.currDir;
+                powerShell.Arguments = "-NoExit -Command cd " + view.CurrDir;
             }
             catch //if we are in this pc view, the above will fail.
             {
-                PowerShell.Arguments = "-NoExit -Command cd "+ Environment.SpecialFolder.UserProfile;
+                powerShell.Arguments = "-NoExit -Command cd "+ Environment.SpecialFolder.UserProfile;
             }
             
             //If you want to make it open an admin command prompt, uncomment:
             //cmd.Verb = "runas";
-            Process P = Process.Start(PowerShell);
+            Process P = Process.Start(powerShell);
         }
 
 
         private void StarMenu(object sender, RoutedEventArgs e)
         {
-            if (!(Star.Height == 100))
+            if (Star.Height != 100)
             {
                 OneDrive.Height = 40;
                 Home.Height = 40;
@@ -219,7 +216,7 @@ namespace Explore10
         }
         private void OpenOneDrive(object sender, RoutedEventArgs e)
         {
-            if (!(OneDrive.Height == 100))
+            if (OneDrive.Height != 100)
             {
                 OneDrive.Height = 100;
                 Home.Height = 40;
