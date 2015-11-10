@@ -2,6 +2,9 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using System.IO;
+using System.Runtime.InteropServices;
+
 
 namespace Explore10
 {
@@ -51,6 +54,8 @@ namespace Explore10
             Content = imageStack;
 
         }
+
         
+
     }
 }

@@ -5,7 +5,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.IO;
 using System.Diagnostics;
-
+using System.Windows.Interop;
+using GongSolutions.Shell;
 
 namespace Explore10
 {
@@ -51,6 +52,7 @@ namespace Explore10
                     BorderBrush = System.Windows.Media.Brushes.Transparent
                 };
                 item.MouseDoubleClick += openFile;
+                item.MouseRightButtonDown += Item_MouseRightButtonDown;
                 item.FillItem(fullName, fileName);
                 FilesView.Items.Add(item);
             }
@@ -69,6 +71,7 @@ namespace Explore10
                     Background = System.Windows.Media.Brushes.Transparent,
                     BorderBrush = System.Windows.Media.Brushes.Transparent
                 };
+                item.MouseRightButtonDown += Item_MouseRightButtonDown;
                 item.FillItem(folderFullName, folderName);
                 item.MouseDoubleClick += folder_MouseDoubleClick;
 
@@ -76,6 +79,18 @@ namespace Explore10
 
             }
             DataContext = this;
+        }
+
+        private void Item_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            //if (SystemParameters.SwapButtons) //right click
+            //{
+            FileItem item = (FileItem)sender;
+            ShellItem myFile = new ShellItem(new Uri(item.Filepath));
+            ShellContextMenu ctxmenu = new ShellContextMenu(myFile);
+            ctxmenu.ShowContextMenu(null, Helpers.GetMousePosition());
+            Debug.WriteLine("no context menu?");
+            //}
         }
 
         private void folder_MouseDoubleClick(object sender, MouseButtonEventArgs e)

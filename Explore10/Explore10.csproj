@@ -46,6 +46,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -204,6 +205,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\PS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="gong-shell\Shell\Shell.csproj">
+      <Project>{711ccf1f-6b8f-4e97-8d84-0ee679c83b41}</Project>
+      <Name>Shell</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
