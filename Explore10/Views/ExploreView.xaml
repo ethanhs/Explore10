@@ -23,7 +23,7 @@
             <Button Name="Refresh" Click="Refresh_Click">
                 <Image Source="/Explore10;component/Images/appbar.refresh.clockwise.up.png" Height="40" Width="40"/>
             </Button>
-            <TextBox Name="AddressBar" FontSize="24" Margin="0,0,40,0"/>
+            <TextBox Name="AddressBar" FontSize="24" Margin="0,0,40,0" KeyDown="AddressBar_KeyDown"/>
             
             
         </DockPanel>

@@ -5,7 +5,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.IO;
 using System.Diagnostics;
-using System.Windows.Interop;
 using GongSolutions.Shell;
 
 namespace Explore10
@@ -13,7 +12,7 @@ namespace Explore10
     /// <summary>
     /// Interaction logic for ExploreView.xaml
     /// </summary>
-        public partial class ExploreView : UserControl
+        public partial class ExploreView : System.Windows.Controls.UserControl
     {
 
         public string CurrDir;
@@ -136,8 +135,9 @@ namespace Explore10
 
         private void Go_Click(object sender, RoutedEventArgs e)
         {
-            PrevDir = CurrDir;
+            
             if (AddressBar.Text == "") return;
+            PrevDir = CurrDir;
             var path= AddressBar.Text;
             if (Directory.Exists(path))
             {
@@ -155,6 +155,28 @@ namespace Explore10
             Process.Start(item.Filepath);
         }
 
+        private void AddressBar_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (AddressBar.Text == "") return;
+                PrevDir = CurrDir;
+                var path = AddressBar.Text;
+                if (Directory.Exists(path))
+                {
+                    FillView(path);
+                }
+                else if (File.Exists(path))
+                {
+                    Process.Start(path);
+
+                }
+                else
+                {
+                    MessageBox.Show("The path entered does not exist", "Explore10"); //TODO replace with metro messagebox
+                }
+            }
+        }
     }
        
 
