@@ -207,7 +207,7 @@
     <Resource Include="Images\PS.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="gong-shell\Shell\Shell.csproj">
+    <ProjectReference Include="..\gong-shell\Shell\Shell.csproj">
       <Project>{711ccf1f-6b8f-4e97-8d84-0ee679c83b41}</Project>
       <Name>Shell</Name>
     </ProjectReference>
