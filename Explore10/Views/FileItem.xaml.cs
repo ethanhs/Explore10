@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Windows.Media;
 
 
 namespace Explore10
@@ -56,6 +58,5 @@ namespace Explore10
         }
 
         
-
     }
 }

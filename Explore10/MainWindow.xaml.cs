@@ -150,7 +150,14 @@ namespace Explore10
                 // select previously selected tab. if that is removed then select first tab
                 if (selectedTab == null || selectedTab.Equals(tab))
                 {
-                    selectedTab = _tabItems[index + 1]; //go to the right?
+                    try
+                    {
+                        selectedTab = _tabItems[index + 1]; //go to the right?
+                    }
+                    catch
+                    {
+                        selectedTab = _tabItems[0];
+                    }
                 }
                 tabDynamic.SelectedItem = selectedTab;
             }

@@ -7,6 +7,8 @@ namespace Explore10
 {
     public static class Helpers
     {
+
+        public static bool Cut;
         //this is used to prettify the output of getting the # of bytes on the drive
         static readonly string[] Suffixes =
         { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };

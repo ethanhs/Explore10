@@ -5,9 +5,9 @@
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:explore="clr-namespace:Explore10"
              Name="Explore"
+             KeyDown="ExploreView_OnKeyDown"
+             
              >
-    
-    
     
     <Grid Name="ParentGrid">
         <DockPanel Height="40" VerticalAlignment="Top">

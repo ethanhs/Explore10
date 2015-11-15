@@ -5,6 +5,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.IO;
 using System.Diagnostics;
+using System.Collections.Generic;
+using System.Windows.Media;
 using GongSolutions.Shell;
 
 namespace Explore10
@@ -12,12 +14,13 @@ namespace Explore10
     /// <summary>
     /// Interaction logic for ExploreView.xaml
     /// </summary>
-        public partial class ExploreView : System.Windows.Controls.UserControl
+        public partial class ExploreView : UserControl
     {
 
         public string CurrDir;
         public string PrevDir;
         public string NextDir;
+        private List<string> Selected = new List<string>();
         public ExploreView()
         {
             InitializeComponent();
@@ -52,6 +55,7 @@ namespace Explore10
                 };
                 item.MouseDoubleClick += openFile;
                 item.MouseRightButtonDown += Item_MouseRightButtonDown;
+                item.Click += Item_Click;
                 item.FillItem(fullName, fileName);
                 FilesView.Items.Add(item);
             }
@@ -73,7 +77,7 @@ namespace Explore10
                 item.MouseRightButtonDown += Item_MouseRightButtonDown;
                 item.FillItem(folderFullName, folderName);
                 item.MouseDoubleClick += folder_MouseDoubleClick;
-
+                item.Click += Item_Click;
                 FilesView.Items.Add(item);
 
             }
@@ -175,6 +179,78 @@ namespace Explore10
                 {
                     MessageBox.Show("The path entered does not exist", "Explore10"); //TODO replace with metro messagebox
                 }
+            }
+        }
+        private void Item_Click(object sender, RoutedEventArgs e)
+        {
+            FileItem item = (FileItem) sender;
+            //add item to the selected if not already, else remove
+            if (!Selected.Contains(item.Filepath))
+            {
+                Selected.Add(item.Filepath);
+                item.Background = new SolidColorBrush(Color.FromRgb(0x1D,0x99,0xCC));
+            }
+            else
+            {
+                Selected.Remove(item.Filepath);
+                item.Background = Brushes.Transparent;
+            }
+
+
+        }
+
+        private void ExploreView_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.C && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            {
+
+                //copy selected to clipboard
+                Clipboard.Clear();
+                Clipboard.SetData(DataFormats.FileDrop, Selected.ToArray());
+                Helpers.Cut = false;
+
+            }
+            if (e.Key == Key.V && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            {
+                //copy selected to clipboard
+                var files = (string[]) Clipboard.GetData(DataFormats.FileDrop);
+                foreach (var file in files)
+                {
+                    if (Helpers.Cut)
+                    {
+                        //if cut, move it!
+                        try
+                        {
+                            File.Move(file, CurrDir + Path.GetFileName(file));
+                        }
+                        catch (System.UnauthorizedAccessException)
+                        {
+                            MessageBox.Show("Need administrator rights to move that file", "Explore10");
+                        }
+                        
+                    }
+                    else
+                    {
+                        try
+                        {
+                            File.Copy(file, CurrDir + Path.GetFileName(file));
+                        }
+                        catch (System.UnauthorizedAccessException)
+                        {
+                            MessageBox.Show("Need administrator rights to copy that file", "Explore10");
+                        }
+                        
+                    }
+                }
+                FillView(CurrDir); //refresh view to reflect changes
+
+            }
+            else if (e.Key == Key.X && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            {
+                //cut selected to clipboard
+                Clipboard.Clear();
+                Clipboard.SetData(DataFormats.FileDrop, Selected.ToArray());
+                Helpers.Cut = true;
             }
         }
     }
