@@ -57,6 +57,11 @@ namespace Explore10
 
         }
 
+        public bool IsLink()
+        {
+            return Path.GetExtension(Filepath) == ".lnk";
+        }
+
         
     }
 }

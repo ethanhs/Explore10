@@ -31,12 +31,10 @@ namespace Explore10
                     Text = di.VolumeLabel,
                     FontSize = 22
                 };
-                //quick hack TODO: add images?
                 var name = new TextBlock
                 {
                     Text = di.Name,
                     FontSize = 40,
-                    Width = 60,
                     Margin = new Thickness {Right = 10},
                     Name = "Path"
                 };

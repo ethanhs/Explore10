@@ -6,6 +6,8 @@ using System.Windows.Input;
 using System.IO;
 using System.Diagnostics;
 using System.Collections.Generic;
+using System.Text;
+using System.Windows.Documents;
 using System.Windows.Media;
 using GongSolutions.Shell;
 
@@ -156,7 +158,38 @@ namespace Explore10
         private void openFile(object sender, RoutedEventArgs e)
         {
             FileItem item = (FileItem)sender;
-            Process.Start(item.Filepath);
+            if (item.IsLink())
+            {
+                try
+                {
+                    //intercept to open the link in Explore10. Don't use COM
+                    var file = File.ReadAllBytes(item.Filepath);
+                    var str = BitConverter.ToString(file);
+                    var index = str.IndexOf("-3A-5C");
+                    var end = str.IndexOf("-00-00", index);
+                    var hexpath = str.Substring(index - 3, end - index)
+                        .Replace("\0", string.Empty)
+                        .Replace("-", string.Empty);
+                    var final = new StringBuilder();
+                    for (var i = 0; i < hexpath.Length; i += 2)
+                    {
+                        string hex = hexpath.Substring(i, 2);
+                        final.Append(Convert.ToChar(Convert.ToUInt32(hex, 16)));
+                    }
+                    FillView(final.ToString());
+                }
+                catch
+                {
+                    MessageBox.Show("That link seems broken, if it works in Explorer, please file a bug");
+                }
+
+
+            }
+            else
+            {
+                Process.Start(item.Filepath);
+            }
+            
         }
 
         private void AddressBar_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
