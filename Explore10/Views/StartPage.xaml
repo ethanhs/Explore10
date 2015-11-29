@@ -9,7 +9,7 @@
       Name="Start">
 
     <Grid>
-        <DockPanel Margin="100,100,100,200">
+        <DockPanel>
             <!-- See codebehind for filling this -->
             <TreeView Name="Drives" Margin="20" BorderBrush="Transparent">
             </TreeView>

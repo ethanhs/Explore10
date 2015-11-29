@@ -41,7 +41,8 @@ namespace Explore10
                 hPanel.Children.Add(name);
                 var space = new TextBlock
                 {
-                    Text = $"{Helpers.PrettyByte(di.AvailableFreeSpace)} free of {Helpers.PrettyByte(di.TotalSize)}"
+                    MinWidth = 200,
+                    Text = $"{Helpers.PrettyByte(di.AvailableFreeSpace)} free of {Helpers.PrettyByte(di.TotalSize)}",
                 };
                 var driveFilled = new ProgressBar
                 {
@@ -59,7 +60,7 @@ namespace Explore10
                 vPanel.Children.Add(driveFilled);
                 vPanel.Children.Add(space);
                 hPanel.Children.Add(vPanel);
-                hPanel.Width = 200;
+                hPanel.Width = 250;
                 hPanel.Height = 50;
                 hPanel.AddHandler(StackPanel.MouseDownEvent, new MouseButtonEventHandler(OpenDrive));
                 hPanel.Margin = new Thickness(10);

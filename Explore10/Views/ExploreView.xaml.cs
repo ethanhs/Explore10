@@ -10,6 +10,8 @@ using System.Text;
 using System.Windows.Documents;
 using System.Windows.Media;
 using GongSolutions.Shell;
+using IWshRuntimeLibrary;
+using File = System.IO.File;
 
 namespace Explore10
 {
@@ -88,14 +90,12 @@ namespace Explore10
 
         private void Item_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            //if (SystemParameters.SwapButtons) //right click
-            //{
             FileItem item = (FileItem)sender;
             ShellItem myFile = new ShellItem(new Uri(item.Filepath));
             ShellContextMenu ctxmenu = new ShellContextMenu(myFile);
             ctxmenu.ShowContextMenu(null, Helpers.GetMousePosition());
-            Debug.WriteLine("no context menu?");
-            //}
+            
+            
         }
 
         private void folder_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -162,21 +162,12 @@ namespace Explore10
             {
                 try
                 {
-                    //intercept to open the link in Explore10. Don't use COM
-                    var file = File.ReadAllBytes(item.Filepath);
-                    var str = BitConverter.ToString(file);
-                    var index = str.IndexOf("-3A-5C");
-                    var end = str.IndexOf("-00-00", index);
-                    var hexpath = str.Substring(index - 3, end - index)
-                        .Replace("\0", string.Empty)
-                        .Replace("-", string.Empty);
-                    var final = new StringBuilder();
-                    for (var i = 0; i < hexpath.Length; i += 2)
-                    {
-                        string hex = hexpath.Substring(i, 2);
-                        final.Append(Convert.ToChar(Convert.ToUInt32(hex, 16)));
-                    }
-                    FillView(final.ToString());
+                    
+                    WshShell shell = new WshShell();
+                    IWshShortcut link =
+                        (IWshShortcut) shell.CreateShortcut(item.Filepath);
+                    FillView(link.TargetPath);
+
                 }
                 catch
                 {
