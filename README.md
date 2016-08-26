@@ -4,10 +4,10 @@
 
 The new fancy Windows Explorer alternative. Please download Visual Studio 2015 and open the solution, then build.
 
-IronManMark20 started this project, and has been helped by Toyz and PFCKrutonium
+ethanhs started this project, and has been assisted by Toyz and PFCKrutonium
 
 #Status
-Somewhat usable, right now
+Somewhat usable, right now. A re-write which changes the UI to fit the MDL2 format is in the works. This will only ever be a proof of concept unless someone wants to contribute money or code.
 
 #License
 This program supports free software and is GPL v3 licensed.
